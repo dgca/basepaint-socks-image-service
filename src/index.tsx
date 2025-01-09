@@ -12,6 +12,11 @@ app.get("/", (c) => {
 });
 
 app.get("/image/:tokenId", async (c) => {
+  // Set CORS headers to allow all origins
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Access-Control-Allow-Methods", "GET");
+  c.header("Access-Control-Allow-Headers", "*");
+
   const tokenId = c.req.param("tokenId");
 
   const tokenDataResponse = await fetch(
