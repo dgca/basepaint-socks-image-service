@@ -12,11 +12,6 @@ app.get("/", (c) => {
 });
 
 app.get("/image/:tokenId", async (c) => {
-  c.header("Access-Control-Allow-Origin", "*");
-  c.header("Access-Control-Allow-Methods", "GET");
-  c.header("Content-Type", "image/png");
-  c.header("Cache-Control", "public, max-age=31536000, immutable");
-
   const tokenId = c.req.param("tokenId");
 
   const tokenDataResponse = await fetch(
@@ -69,6 +64,11 @@ app.get("/image/:tokenId", async (c) => {
   const resvg = new Resvg(svg);
   const pngData = resvg.render();
   const png = pngData.asPng().buffer as ArrayBuffer;
+
+  c.header("Access-Control-Allow-Origin", "*");
+  c.header("Access-Control-Allow-Methods", "GET");
+  c.header("Content-Type", "image/png");
+  c.header("Cache-Control", "public, max-age=31536000, immutable");
 
   return c.body(png);
 });
