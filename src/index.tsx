@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import satori from "satori";
 import { format } from "date-fns";
 import { fonts } from "@/fonts";
-import { BasepaintImage } from "./renderImage";
+import { BasepaintImage } from "@/components/RenderImage";
 
 const app = new Hono();
 
@@ -13,9 +13,15 @@ app.get("/", (c) => {
 app.get("/image/:tokenId", async (c) => {
   const tokenId = c.req.param("tokenId");
 
-  const tokenData = await fetch(
+  const tokenDataResponse = await fetch(
     `https://basepaint.xyz/api/art/${Number(tokenId).toString(16)}`
-  ).then((res) => res.json());
+  );
+
+  if (!tokenDataResponse.ok) {
+    return c.text("Internal server error", 500);
+  }
+
+  const tokenData = await tokenDataResponse.json();
 
   const title = tokenData.attributes.find(
     (attr: Record<string, string>) => attr.trait_type === "Theme"

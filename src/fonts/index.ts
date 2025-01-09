@@ -1,10 +1,10 @@
 import type { FontStyle, FontWeight } from "satori";
 
-const RobotoBlack = Bun.file("./fonts/Roboto/Roboto-Black.ttf");
-const RobotoBold = Bun.file("./fonts/Roboto/Roboto-Bold.ttf");
-const RobotoRegular = Bun.file("./fonts/Roboto/Roboto-Regular.ttf");
-const RobotoMedium = Bun.file("./fonts/Roboto/Roboto-Medium.ttf");
-const RobotoLight = Bun.file("./fonts/Roboto/Roboto-Light.ttf");
+const RobotoBlack = Bun.file(`${import.meta.dir}/Roboto/Roboto-Black.ttf`);
+const RobotoBold = Bun.file(`${import.meta.dir}/Roboto/Roboto-Bold.ttf`);
+const RobotoRegular = Bun.file(`${import.meta.dir}/Roboto/Roboto-Regular.ttf`);
+const RobotoMedium = Bun.file(`${import.meta.dir}/Roboto/Roboto-Medium.ttf`);
+const RobotoLight = Bun.file(`${import.meta.dir}/Roboto/Roboto-Light.ttf`);
 
 const robotoBlack = Buffer.from(await RobotoBlack.arrayBuffer());
 const robotoBold = Buffer.from(await RobotoBold.arrayBuffer());

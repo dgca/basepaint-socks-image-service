@@ -1,4 +1,4 @@
-import { getBase64Image } from "@/utils/images";
+import { images } from "@/images";
 
 const SOCK_BG_COLOR = "#030712";
 
@@ -10,7 +10,6 @@ export function BasepaintImage({
   contributorCount,
   proposer,
   mintDate,
-  requestOrigin,
 }: {
   tokenId: string;
   palette: string[];
@@ -72,7 +71,6 @@ export function BasepaintImage({
             height: 2800,
             width: 2800,
             backgroundImage: `url(${image})`,
-            backgroundColor: "red",
             backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
           }}
@@ -95,9 +93,10 @@ export function BasepaintImage({
           flexGrow: 1,
         }}
       >
-        <LogoBottom requestOrigin={requestOrigin} />
+        <LogoBottom />
         <div
           style={{
+            height: 1450,
             flexGrow: 1,
             fontSize: 120,
             display: "flex",
@@ -124,14 +123,21 @@ export function BasepaintImage({
               />
             ))}
           </div>
-          <div>{title}</div>
+          <div
+            style={{
+              maxWidth: 1400,
+              textAlign: "center",
+            }}
+          >
+            {title}
+          </div>
 
           <div
             style={{
               height: 121,
               width: 300,
-              margin: "277px 0",
-              backgroundImage: `url("${getBase64Image("logo-white.png")}")`,
+              margin: "auto 0",
+              backgroundImage: `url("${images.logo}")`,
             }}
           />
 
@@ -148,7 +154,7 @@ export function BasepaintImage({
             <Datum label="Mint Date" value={mintDate} />
           </div>
         </div>
-        <LogoBottom requestOrigin={requestOrigin} />
+        <LogoBottom />
       </div>
     </div>
   );
@@ -209,13 +215,13 @@ function DesignSidebars({
   );
 }
 
-function LogoBottom({ requestOrigin }: { requestOrigin: string }) {
+function LogoBottom() {
   return (
     <div
       style={{
         width: 700,
         height: 1760,
-        backgroundImage: `url("${getBase64Image("logo-bottom-pattern.png")}")`,
+        backgroundImage: `url("${images.bottomPattern}")`,
         backgroundSize: "contain",
       }}
     />
