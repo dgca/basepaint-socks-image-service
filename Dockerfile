@@ -1,16 +1,17 @@
 # syntax = docker/dockerfile:1
 
 # Adjust BUN_VERSION as desired
-ARG BUN_VERSION=1.0.26
+ARG BUN_VERSION=1.1.42
 FROM oven/bun:${BUN_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Bun"
 
 # Bun app lives here
-WORKDIR /src
+WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV="production"
+
 
 # Throw-away build stage to reduce size of final image
 FROM base as build
@@ -35,4 +36,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "bun", "index.ts" ]
+CMD [ "bun", "run", "start" ]
