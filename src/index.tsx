@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import satori from "satori";
 import { format } from "date-fns";
+import { Resvg } from "@resvg/resvg-js";
 import { fonts } from "@/fonts";
 import { BasepaintImage } from "@/components/RenderImage";
 
@@ -60,9 +61,13 @@ app.get("/image/:tokenId", async (c) => {
     }
   );
 
-  c.header("Content-Type", "image/svg+xml");
+  const resvg = new Resvg(svg);
+  const pngData = resvg.render();
+  const png = pngData.asPng().buffer as ArrayBuffer;
 
-  return c.body(svg);
+  c.header("Content-Type", "image/png");
+
+  return c.body(png);
 });
 
 export default app;
